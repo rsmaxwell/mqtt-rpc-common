@@ -30,8 +30,8 @@ tasks.named('test') {
 }
 
 ext {
-    projectVersion = project.hasProperty('projectVersion') ? project.getProperty('projectVersion') : projectVersion_default
-    repositoryName = project.hasProperty('repositoryName') ? project.getProperty('repositoryName') : repositoryName_default
+    projectVersion = project.hasProperty('projectVersion') ? project.getProperty('projectVersion') : "0.0.1-SNAPSHOT"
+    repositoryName = project.hasProperty('repositoryName') ? project.getProperty('repositoryName') : "snapshots"
 }
 
 publishing {
