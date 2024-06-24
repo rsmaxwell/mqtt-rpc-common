@@ -11,6 +11,6 @@ BUILD_DIR=${PROJECT_DIR}/app/build
 
 cd ${PROJECT_DIR}
 
-./gradlew publish --no-daemon --info \
+../gradlew publish --no-daemon --info \
     -PrepositoryName=${REPOSITORY} \
     -PprojectVersion=${VERSION}
