@@ -29,6 +29,10 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+tasks.withType(Compile) {
+    options.encoding = "UTF-8"
+}
+
 ext {
     projectVersion = project.hasProperty('projectVersion') ? project.getProperty('projectVersion') : "0.0.1-SNAPSHOT"
     repositoryName = project.hasProperty('repositoryName') ? project.getProperty('repositoryName') : "snapshots"
