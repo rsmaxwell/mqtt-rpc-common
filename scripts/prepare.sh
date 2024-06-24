@@ -50,8 +50,8 @@ TEMPLATES_DIR=${PROJECT_DIR}/templates
 
 
 
-PROJECT=example-c
-GROUPID=com.rsmaxwell.example
+PROJECT=mqtt-rpc-common
+GROUPID=com.rsmaxwell.mqtt.rpc
 ARTIFACTID=${PROJECT}_${FAMILY}_${ARCHITECTURE}
 PACKAGING=zip
 ZIPFILE=${ARTIFACTID}_${VERSION}.${PACKAGING}
