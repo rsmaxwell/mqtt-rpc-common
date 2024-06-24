@@ -10,11 +10,14 @@ BUILD_DIR=${PROJECT_DIR}/app/build
 . ${BUILD_DIR}/buildinfo
 
 
+tree -L 4
+
+
 cd ${PROJECT_DIR}
 
 ls -al 
 ls -al ..
-ls -al ..\..
+ls -al ../..
 
 ../../gradlew publish --no-daemon --info \
     -PrepositoryName=${REPOSITORY} \
