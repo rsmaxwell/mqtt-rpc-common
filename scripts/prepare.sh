@@ -1,10 +1,6 @@
 #!/bin/sh
 
 
-
-
-
-
 if [ -z "${BUILD_ID}" ]; then
     BUILD_ID="(none)"
     VERSION="0.0.1-SNAPSHOT"
@@ -24,8 +20,6 @@ SCRIPT_DIR=$(cd $BASEDIR && pwd)
 PROJECT_DIR=$(dirname $SCRIPT_DIR)
 SOURCE_DIR=${PROJECT_DIR}/src
 BUILD_DIR=${PROJECT_DIR}/app/build
-TEMPLATES_DIR=${PROJECT_DIR}/templates
-
 
 
 
@@ -56,16 +50,17 @@ export GIT_URL
 
 
 
-cd ${TEMPLATES_DIR}
+cd ${SOURCE_DIR}
 
 tags='$PROJECT,$REPOSITORY,$REPOSITORYID,$VERSION,$BUILD_ID,$TIMESTAMP,$GIT_COMMIT,$GIT_BRANCH,$GIT_URL'
 
-find . -type f | while read filename; do
-    echo "Writing ${filename}"
-    file=${SOURCE_DIR}/${filename}
-    dir=${directory ${file}}
-    mkdir -p ${dir}
-    envsubst "${tags}" < ${filename} > ${file}
+find . -name Version.java | while read filename; do
+    echo "Updating ${filename}"
+    originalfile=${SOURCE_DIR}/${filename}
+    tmpfile=$(mktemp)
+    cp --attributes-only --preserve ${originalfile} ${tmpfile}
+    cat ${originalfile} | envsubst > ${tmpfile}
+    mv ${tmpfile} ${originalfile}
 done
 
 
