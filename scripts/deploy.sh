@@ -6,9 +6,8 @@ BASEDIR=$(dirname "$0")
 SCRIPT_DIR=$(cd $BASEDIR && pwd)
 SUBPROJECT_DIR=$(dirname $SCRIPT_DIR)
 PROJECT_DIR=$(dirname $SUBPROJECT_DIR)
-BUILD_DIR=${SUBPROJECT_DIR}/app/build
 
-. ${BUILD_DIR}/buildinfo
+. ${PROJECT_DIR}/buildinfo
 
 
 cd ${SUBPROJECT_DIR}
