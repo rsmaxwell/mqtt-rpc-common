@@ -13,6 +13,6 @@ BUILD_DIR=${SUBPROJECT_DIR}/build
 
 cd ${PROJECT_DIR}
 
-${SUBPROJECT_DIR}/gradlew :mqtt-rpc-common:publish --no-daemon --info --warning-mode all \
+${PROJECT_DIR}/gradlew :mqtt-rpc-common:publish --no-daemon --info --warning-mode all \
     -PrepositoryName=${REPOSITORY} \
     -PprojectVersion=${VERSION}
