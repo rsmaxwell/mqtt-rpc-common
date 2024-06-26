@@ -1,15 +1,14 @@
 #!/bin/sh
 
+set -x 
 
 if [ -z "${BUILD_ID}" ]; then
     BUILD_ID="(none)"
     VERSION="0.0.1-SNAPSHOT"
     REPOSITORY=snapshots
-    REPOSITORYID=snapshots
 else
     VERSION="0.0.1.$((${BUILD_ID}))"
     REPOSITORY=releases
-    REPOSITORYID=releases
 fi
 
 
@@ -17,9 +16,9 @@ fi
 
 BASEDIR=$(dirname "$0")
 SCRIPT_DIR=$(cd $BASEDIR && pwd)
-PROJECT_DIR=$(dirname $SCRIPT_DIR)
-SOURCE_DIR=${PROJECT_DIR}/src
-BUILD_DIR=${PROJECT_DIR}/build
+SUBPROJECT_DIR=$(dirname $SCRIPT_DIR)
+PROJECT_DIR=$(dirname $SUBPROJECT_DIR)
+BUILD_DIR=${SUBPROJECT_DIR}/build
 
 
 
@@ -40,7 +39,6 @@ GIT_URL="${GIT_URL:-(none)}"
 
 export PROJECT
 export REPOSITORY
-export REPOSITORYID
 export BUILD_ID
 export VERSION
 export TIMESTAMP
@@ -52,7 +50,7 @@ export GIT_URL
 
 cd ${SOURCE_DIR}
 
-tags='$PROJECT,$REPOSITORY,$REPOSITORYID,$VERSION,$BUILD_ID,$TIMESTAMP,$GIT_COMMIT,$GIT_BRANCH,$GIT_URL'
+tags='$PROJECT,$REPOSITORY,$VERSION,$BUILD_ID,$TIMESTAMP,$GIT_COMMIT,$GIT_BRANCH,$GIT_URL'
 
 find . -name Version.java | while read filename; do
     echo "Updating ${filename}"
@@ -73,7 +71,6 @@ cat > buildinfo <<EOL
 BUILD_ID="${BUILD_ID}"
 VERSION="${VERSION}"
 REPOSITORY="${REPOSITORY}"
-REPOSITORYID="${REPOSITORYID}"
 REPOSITORY_URL="${REPOSITORY_URL}"
 PROJECT="${PROJECT}"
 GROUPID="${GROUPID}"
