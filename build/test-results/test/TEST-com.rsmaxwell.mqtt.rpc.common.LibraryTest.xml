@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.rsmaxwell.mqtt.rpc.common.LibraryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-06-25T08:55:13" hostname="RICHARD-PC" time="0.008">
+<testsuite name="com.rsmaxwell.mqtt.rpc.common.LibraryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-06-25T09:26:05" hostname="RICHARD-PC" time="0.007">
   <properties/>
-  <testcase name="someLibraryMethodReturnsTrue()" classname="com.rsmaxwell.mqtt.rpc.common.LibraryTest" time="0.008"/>
+  <testcase name="someLibraryMethodReturnsTrue()" classname="com.rsmaxwell.mqtt.rpc.common.LibraryTest" time="0.007"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
