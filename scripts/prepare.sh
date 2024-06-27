@@ -86,3 +86,10 @@ EOL
 pwd
 ls -al 
 cat buildinfo
+
+cd ${SUBPROJECT_DIR}
+ls -al 
+
+echo "gradle.properties"
+cat gradle.properties
+
