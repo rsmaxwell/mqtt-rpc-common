@@ -58,5 +58,3 @@ publishing {
         }
     }
 }
-
-project.logger.lifecycle("mavenRepositoryBaseURL: ${mavenRepositoryBaseURL}")
