@@ -55,6 +55,7 @@ publishing {
             }
 
             url = "${mavenRepositoryBaseURL}/${repositoryName}"
+            allowInsecureProtocol = true
         }
     }
 }
