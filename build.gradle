@@ -10,16 +10,10 @@ repositories {
 
 dependencies {
     testImplementation libs.junit.jupiter
-
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-    api libs.commons.math3
-
     implementation libs.guava
-
     implementation 'org.eclipse.paho:org.eclipse.paho.mqttv5.client:1.2.5'
 }
-
 
 java {
     toolchain {
