@@ -93,3 +93,6 @@ ls -al
 echo "gradle.properties"
 cat gradle.properties
 
+cd ~
+pwd
+grep -r mavenRepositoryBaseURL *
