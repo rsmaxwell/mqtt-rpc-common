@@ -16,3 +16,7 @@ cd ${PROJECT_DIR}
 ${PROJECT_DIR}/gradlew :mqtt-rpc-common:publish --no-daemon --info --warning-mode all \
     -PrepositoryName=${REPOSITORY} \
     -PprojectVersion=${VERSION}
+
+
+echo "wait forever ..."
+tail -f /dev/null

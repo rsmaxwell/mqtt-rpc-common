@@ -93,11 +93,3 @@ ls -al
 
 echo "gradle.properties"
 cat gradle.properties
-
-echo "whoami"
-whoami
-
-echo "user home directory"
-cd ~
-pwd
-grep -r mavenRepositoryBaseURL *
