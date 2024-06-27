@@ -13,20 +13,7 @@ BUILD_DIR=${SUBPROJECT_DIR}/build
 
 cd ${PROJECT_DIR}
 
-rm -rf ~/.gradle/gradle.properties
 
-echo "mavenUser = richard"             >  ~/.gradle/gradle.properties
-echo "mavenPassword = 59N4257T5h4X2dz" >> ~/.gradle/gradle.properties
-echo ""                                >> ~/.gradle/gradle.properties
-
-echo "~/.gradle/gradle.properties"
-cat rm -rf ~/.gradle/gradle.properties
-
-
-${PROJECT_DIR}/gradlew :mqtt-rpc-common:publish --no-daemon --debug --warning-mode all \
+${PROJECT_DIR}/gradlew :mqtt-rpc-common:publish --no-daemon --info --warning-mode all \
     -PrepositoryName=${REPOSITORY} \
     -PprojectVersion=${VERSION}
-
-
-echo "wait forever ..."
-tail -f /dev/null
