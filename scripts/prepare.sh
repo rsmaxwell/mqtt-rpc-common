@@ -87,12 +87,17 @@ pwd
 ls -al 
 cat buildinfo
 
+echo "subproject directory"
 cd ${SUBPROJECT_DIR}
 ls -al 
 
 echo "gradle.properties"
 cat gradle.properties
 
+echo "whoami"
+whoami
+
+echo "user home directory"
 cd ~
 pwd
 grep -r mavenRepositoryBaseURL *
