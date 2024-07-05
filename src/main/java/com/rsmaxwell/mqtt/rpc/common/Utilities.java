@@ -4,6 +4,10 @@ import java.util.Map;
 
 public abstract class Utilities {
 
+	public static Object put(Map<String, Object> map, String key, Object value) {
+		return map.put(key, value);
+	}
+
 	public static String getString(Map<String, Object> map, String key) throws Exception {
 
 		boolean present = map.containsKey(key);

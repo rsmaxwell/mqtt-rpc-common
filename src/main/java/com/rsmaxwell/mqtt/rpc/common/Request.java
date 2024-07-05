@@ -1,18 +1,37 @@
 package com.rsmaxwell.mqtt.rpc.common;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public interface Request {
+public class Request {
 
-	public Object put(String key, Object value);
+	String function;
+	public Map<String, Object> args = new HashMap<String, Object>();
 
-	public String getFunction();
+	public Request() {
+	}
 
-	public void setFunction(String function);
+	public Request(String function) {
+		this.function = function;
+	}
 
-	public Map<String, Object> getArgs();
+	public Object put(String key, Object value) {
+		return args.put(key, value);
+	}
 
-	public void setArgs(Map<String, Object> args);
+	public String getFunction() {
+		return function;
+	}
 
-	abstract public void handle(Response response) throws Exception;
+	public void setFunction(String function) {
+		this.function = function;
+	}
+
+	public Map<String, Object> getArgs() {
+		return args;
+	}
+
+	public void setArgs(Map<String, Object> args) {
+		this.args = args;
+	}
 }
