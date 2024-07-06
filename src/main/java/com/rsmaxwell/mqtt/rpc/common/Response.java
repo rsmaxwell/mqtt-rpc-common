@@ -34,10 +34,6 @@ public class Response extends HashMap<String, Object> {
 		return Utilities.getString(this, key);
 	}
 
-	public Object put(String key, Object value) {
-		return Utilities.put(this, key, value);
-	}
-
 	public Integer getInteger(String key) throws Exception {
 		return Utilities.getInteger(this, key);
 	}
