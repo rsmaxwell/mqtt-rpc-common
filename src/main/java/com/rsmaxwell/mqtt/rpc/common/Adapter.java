@@ -14,26 +14,26 @@ public class Adapter implements MqttCallback {
 	private static final Logger logger = LogManager.getLogger(Adapter.class);
 
 	public void messageArrived(String topic, MqttMessage replyMessage) throws Exception {
-		logger.info("messageArrived");
+		logger.debug("messageArrived");
 	}
 
 	public void disconnected(MqttDisconnectResponse disconnectResponse) {
-		logger.info("disconnected");
+		logger.debug("disconnected");
 	}
 
 	public void mqttErrorOccurred(MqttException exception) {
-		logger.info("mqttErrorOccurred");
+		logger.debug("mqttErrorOccurred");
 	}
 
 	public void deliveryComplete(IMqttToken token) {
-		logger.info("deliveryComplete");
+		logger.debug("deliveryComplete");
 	}
 
 	public void connectComplete(boolean reconnect, String serverURI) {
-		logger.info("connectComplete");
+		logger.debug("connectComplete");
 	}
 
 	public void authPacketArrived(int reasonCode, MqttProperties properties) {
-		logger.info("authPacketArrived");
+		logger.debug("authPacketArrived");
 	}
 }
