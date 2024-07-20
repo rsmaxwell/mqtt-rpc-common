@@ -9,9 +9,42 @@ public class Response extends HashMap<String, Object> {
 		super();
 	}
 
-	public boolean ok() throws Exception {
+	public boolean isok() throws Exception {
 		int code = getInteger("code");
 		return (code == HttpURLConnection.HTTP_OK);
+	}
+
+	public static Response success() {
+		Response response = new Response();
+		response.put("code", HttpURLConnection.HTTP_OK);
+		return response;
+	}
+
+	public static Response success(Object value) {
+		Response response = new Response();
+		response.put("code", HttpURLConnection.HTTP_OK);
+		response.put("result", value);
+		return response;
+	}
+
+	public static Response quit() {
+		Response response = new Response();
+		response.put("code", HttpURLConnection.HTTP_OK);
+		return response;
+	}
+
+	public static Response badRequest(String message) {
+		Response response = new Response();
+		response.put("code", HttpURLConnection.HTTP_BAD_REQUEST);
+		response.put("message", message);
+		return response;
+	}
+
+	public static Response internalError(String message) {
+		Response response = new Response();
+		response.put("code", HttpURLConnection.HTTP_INTERNAL_ERROR);
+		response.put("message", message);
+		return response;
 	}
 
 	public Object putCode(int code) throws Exception {
