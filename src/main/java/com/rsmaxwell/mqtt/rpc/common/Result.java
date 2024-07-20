@@ -12,6 +12,11 @@ public class Result {
 		return new Result(response, false);
 	}
 
+	public static Result success() {
+		Response response = Response.success();
+		return new Result(response, false);
+	}
+
 	public static Result success(Object value) {
 		Response response = Response.success();
 		response.put("result", value);
