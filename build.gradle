@@ -2,6 +2,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'eclipse'
 }
 
 repositories {
@@ -12,10 +13,10 @@ dependencies {
     testImplementation libs.junit.jupiter
     testRuntimeOnly libs.junit.platform.launcher
     testImplementation libs.log4j.core
-    
+
     compileOnly libs.lombok
-	annotationProcessor libs.lombok
-	
+    annotationProcessor libs.lombok
+
     implementation libs.guava
     implementation libs.org.eclipse.paho.mqttv5.client
     implementation libs.log4j.api
