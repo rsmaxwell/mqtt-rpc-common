@@ -46,11 +46,13 @@ public abstract class Utilities {
 		}
 
 		Object obj = map.get(key);
-		if ((obj instanceof Long) == false) {
+
+		if ((obj instanceof Number) == false) {
 			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
 		}
 
-		return (Long) obj;
+		Number temp = (Number) obj;
+		return temp.longValue();
 	}
 
 	public static Boolean getBoolean(Map<String, Object> map, String key) throws Exception {
