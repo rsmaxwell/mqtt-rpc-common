@@ -38,6 +38,21 @@ public abstract class Utilities {
 		return (Integer) obj;
 	}
 
+	public static Long getLong(Map<String, Object> map, String key) throws Exception {
+
+		boolean present = map.containsKey(key);
+		if (!present) {
+			throw new Exception(String.format("could not find the key [%s]", key));
+		}
+
+		Object obj = map.get(key);
+		if ((obj instanceof Long) == false) {
+			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
+		}
+
+		return (Long) obj;
+	}
+
 	public static Boolean getBoolean(Map<String, Object> map, String key) throws Exception {
 
 		boolean present = map.containsKey(key);
