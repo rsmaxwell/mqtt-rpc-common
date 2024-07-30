@@ -71,6 +71,10 @@ public class Response extends HashMap<String, Object> {
 		return Utilities.getInteger(this, key);
 	}
 
+	public Long getLong(String key) throws Exception {
+		return Utilities.getLong(this, key);
+	}
+
 	public Boolean getBoolean(String key) throws Exception {
 		return Utilities.getBoolean(this, key);
 	}
