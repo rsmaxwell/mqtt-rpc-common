@@ -59,6 +59,10 @@ public class Response extends HashMap<String, Object> {
 		return put("code", message);
 	}
 
+	public boolean containsKey(String key) {
+		return containsKey(key);
+	}
+
 	public String getMessage() throws Exception {
 		return getString("message");
 	}

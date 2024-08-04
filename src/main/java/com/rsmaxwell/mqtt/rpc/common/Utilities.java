@@ -8,6 +8,10 @@ public abstract class Utilities {
 		return map.put(key, value);
 	}
 
+	public static boolean containsKey(Map<String, Object> map, String key) {
+		return map.containsKey(key);
+	}
+
 	public static String getString(Map<String, Object> map, String key) throws Exception {
 
 		boolean present = map.containsKey(key);
