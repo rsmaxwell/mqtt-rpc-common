@@ -35,8 +35,8 @@ public class Result {
 	}
 
 	public static Result badRequestException(Throwable t) {
-		String message = String.format("%s: %s", t.getClass().getSimpleName(), t.getMessage());
-		Response response = Response.badRequest(message);
+		String message = t.getMessage();
+		Response response = Response.badRequest(t.getMessage());
 		response.put("message", message);
 		return new Result(response, false);
 	}
@@ -48,7 +48,7 @@ public class Result {
 	}
 
 	public static Result internalErrorException(Throwable t) {
-		String message = String.format("%s: %s", t.getClass().getSimpleName(), t.getMessage());
+		String message = t.getMessage();
 		Response response = Response.internalError(message);
 		response.put("message", message);
 		return new Result(response, false);
