@@ -47,6 +47,13 @@ public class Response extends HashMap<String, Object> {
 		return response;
 	}
 
+	public static Response unauthorized(String message) {
+		Response response = new Response();
+		response.put("code", HttpURLConnection.HTTP_UNAUTHORIZED);
+		response.put("message", message);
+		return response;
+	}
+
 	public Object putCode(int code) throws Exception {
 		return put("code", code);
 	}

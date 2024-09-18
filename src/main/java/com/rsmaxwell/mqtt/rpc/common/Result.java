@@ -30,14 +30,12 @@ public class Result {
 
 	public static Result badRequest(String message) {
 		Response response = Response.badRequest(message);
-		response.put("message", message);
 		return new Result(response, false);
 	}
 
 	public static Result badRequestException(Throwable t) {
 		String message = t.getMessage();
 		Response response = Response.badRequest(t.getMessage());
-		response.put("message", message);
 		return new Result(response, false);
 	}
 
@@ -50,7 +48,6 @@ public class Result {
 	public static Result internalErrorException(Throwable t) {
 		String message = t.getMessage();
 		Response response = Response.internalError(message);
-		response.put("message", message);
 		return new Result(response, false);
 	}
 
@@ -58,6 +55,11 @@ public class Result {
 		Response response = new Response();
 		response.put("code", HttpURLConnection.HTTP_BAD_REQUEST);
 		return new Result(response, true);
+	}
+
+	public static Result unauthorised(String message) {
+		Response response = Response.unauthorized(message);
+		return new Result(response, false);
 	}
 
 	public Result(Response response, boolean quit) {
