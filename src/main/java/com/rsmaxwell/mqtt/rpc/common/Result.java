@@ -57,8 +57,8 @@ public class Result {
 		return new Result(response, true);
 	}
 
-	public static Result unauthorised(String message) {
-		Response response = Response.unauthorized(message);
+	public static Result unauthorised() {
+		Response response = Response.unauthorized();
 		return new Result(response, false);
 	}
 

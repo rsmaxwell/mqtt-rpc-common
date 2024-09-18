@@ -47,10 +47,10 @@ public class Response extends HashMap<String, Object> {
 		return response;
 	}
 
-	public static Response unauthorized(String message) {
+	public static Response unauthorized() {
 		Response response = new Response();
 		response.put("code", HttpURLConnection.HTTP_UNAUTHORIZED);
-		response.put("message", message);
+		response.put("message", "unauthorized");
 		return response;
 	}
 
