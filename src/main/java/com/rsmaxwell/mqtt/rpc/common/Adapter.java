@@ -11,29 +11,29 @@ import org.eclipse.paho.mqttv5.common.packet.MqttProperties;
 
 public class Adapter implements MqttCallback {
 
-	private static final Logger logger = LogManager.getLogger(Adapter.class);
+	private static final Logger log = LogManager.getLogger(Adapter.class);
 
 	public void messageArrived(String topic, MqttMessage replyMessage) throws Exception {
-		logger.debug("messageArrived");
+		log.debug("messageArrived");
 	}
 
 	public void disconnected(MqttDisconnectResponse disconnectResponse) {
-		logger.debug("disconnected");
+		log.debug("disconnected");
 	}
 
 	public void mqttErrorOccurred(MqttException exception) {
-		logger.debug("mqttErrorOccurred");
+		log.debug("mqttErrorOccurred");
 	}
 
 	public void deliveryComplete(IMqttToken token) {
-		logger.debug("deliveryComplete");
+		log.debug("deliveryComplete");
 	}
 
 	public void connectComplete(boolean reconnect, String serverURI) {
-		logger.debug("connectComplete");
+		log.debug("connectComplete");
 	}
 
 	public void authPacketArrived(int reasonCode, MqttProperties properties) {
-		logger.debug("authPacketArrived");
+		log.debug("authPacketArrived");
 	}
 }
