@@ -3,6 +3,9 @@ package com.rsmaxwell.mqtt.rpc.common;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 
+import lombok.ToString;
+
+@ToString
 public class Response extends HashMap<String, Object> {
 
 	public Response() {

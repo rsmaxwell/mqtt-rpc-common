@@ -1,5 +1,8 @@
 package com.rsmaxwell.mqtt.rpc.common;
 
+import lombok.ToString;
+
+@ToString
 public class Result {
 
 	private Response response;
