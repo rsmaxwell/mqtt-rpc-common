@@ -1,5 +1,6 @@
 package com.rsmaxwell.mqtt.rpc.common;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public abstract class Utilities {
@@ -57,6 +58,53 @@ public abstract class Utilities {
 
 		Number temp = (Number) obj;
 		return temp.longValue();
+	}
+
+	public static Double getDouble(Map<String, Object> map, String key) throws Exception {
+
+		boolean present = map.containsKey(key);
+		if (!present) {
+			throw new Exception(String.format("could not find the key [%s]", key));
+		}
+
+		Object obj = map.get(key);
+
+		if ((obj instanceof Number) == false) {
+			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
+		}
+
+		Number temp = (Number) obj;
+		return temp.doubleValue();
+	}
+
+	public static BigDecimal getBigDecimal(Map<String, Object> map, String key) throws Exception {
+
+		boolean present = map.containsKey(key);
+		if (!present) {
+			throw new Exception(String.format("could not find the key [%s]", key));
+		}
+
+		Object obj = map.get(key);
+
+		if ((obj instanceof Number) == false) {
+			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
+		}
+
+		Number number = (Number) obj;
+
+		BigDecimal decimal;
+
+		if (number instanceof BigDecimal) {
+			decimal = (BigDecimal) number;
+		} else if (number instanceof Long || number instanceof Integer) {
+			decimal = BigDecimal.valueOf(number.longValue());
+		} else if (number instanceof Double || number instanceof Float) {
+			decimal = BigDecimal.valueOf(number.doubleValue());
+		} else {
+			decimal = new BigDecimal(number.toString());
+		}
+
+		return decimal;
 	}
 
 	public static Boolean getBoolean(Map<String, Object> map, String key) throws Exception {
