@@ -1,91 +1,63 @@
 package com.rsmaxwell.mqtt.rpc.common;
 
 import java.net.HttpURLConnection;
-import java.util.HashMap;
 
-import lombok.ToString;
+import lombok.Data;
 
-@ToString
-public class Response extends HashMap<String, Object> {
+@Data
+public class Response {
+
+	private Status status;
+	private Object payload;
+	private boolean quit;
 
 	public Response() {
-		super();
 	}
 
-	public boolean isok() throws Exception {
-		int code = getInteger("code");
-		return (code == HttpURLConnection.HTTP_OK);
+	public Response(Status status, Object payload) {
+		this.status = status;
+		this.payload = payload;
+	}
+
+	public boolean isOk() throws Exception {
+		return (this.status.isOk());
 	}
 
 	public static Response success() {
 		Response response = new Response();
-		response.put("code", HttpURLConnection.HTTP_OK);
+		response.setStatus(new Status(HttpURLConnection.HTTP_OK, "Ok"));
 		return response;
 	}
 
 	public static Response success(Object value) {
 		Response response = new Response();
-		response.put("code", HttpURLConnection.HTTP_OK);
-		response.put("result", value);
+		response.setStatus(new Status(HttpURLConnection.HTTP_OK, "Ok"));
+		response.setPayload(value);
 		return response;
 	}
 
 	public static Response quit() {
 		Response response = new Response();
-		response.put("code", HttpURLConnection.HTTP_OK);
+		response.setStatus(new Status(HttpURLConnection.HTTP_OK, "Ok"));
+		response.setQuit(true);
 		return response;
 	}
 
 	public static Response badRequest(String message) {
 		Response response = new Response();
-		response.put("code", HttpURLConnection.HTTP_BAD_REQUEST);
-		response.put("message", message);
+		response.setStatus(new Status(HttpURLConnection.HTTP_BAD_REQUEST, message));
 		return response;
 	}
 
 	public static Response internalError(String message) {
 		Response response = new Response();
-		response.put("code", HttpURLConnection.HTTP_INTERNAL_ERROR);
-		response.put("message", message);
+		response.setStatus(new Status(HttpURLConnection.HTTP_INTERNAL_ERROR, message));
 		return response;
 	}
 
 	public static Response unauthorized() {
 		Response response = new Response();
-		response.put("code", HttpURLConnection.HTTP_UNAUTHORIZED);
-		response.put("message", "unauthorized");
+		response.setStatus(new Status(HttpURLConnection.HTTP_UNAUTHORIZED, "Unauthorized"));
 		return response;
-	}
-
-	public Object putCode(int code) throws Exception {
-		return put("code", code);
-	}
-
-	public int getCode() throws Exception {
-		return getInteger("code");
-	}
-
-	public Object putMessage(String message) throws Exception {
-		return put("code", message);
-	}
-
-	public String getMessage() throws Exception {
-		return getString("message");
-	}
-
-	public String getString(String key) throws Exception {
-		return Utilities.getString(this, key);
-	}
-
-	public Integer getInteger(String key) throws Exception {
-		return Utilities.getInteger(this, key);
-	}
-
-	public Long getLong(String key) throws Exception {
-		return Utilities.getLong(this, key);
-	}
-
-	public Boolean getBoolean(String key) throws Exception {
-		return Utilities.getBoolean(this, key);
 	}
 }
