@@ -2,6 +2,8 @@ package com.rsmaxwell.mqtt.rpc.common;
 
 import java.net.HttpURLConnection;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -12,6 +14,7 @@ public class Status {
 	private int code;
 	private String message;
 
+	@JsonIgnore
 	public boolean isOk() throws Exception {
 		return (code == HttpURLConnection.HTTP_OK);
 	}

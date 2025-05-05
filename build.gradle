@@ -20,6 +20,7 @@ dependencies {
     implementation libs.guava
     implementation libs.org.eclipse.paho.mqttv5.client
     implementation libs.log4j.api
+    implementation libs.jackson.databind
 }
 
 java {
