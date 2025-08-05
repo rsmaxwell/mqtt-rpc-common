@@ -28,11 +28,41 @@ public abstract class Utilities {
 		return obj.toString();
 	}
 
+	public static String getStringOrNull(Map<String, Object> map, String key) throws Exception {
+
+		boolean present = map.containsKey(key);
+		if (!present) {
+			return null;
+		}
+
+		Object obj = map.get(key);
+		if ((obj instanceof String) == false) {
+			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
+		}
+
+		return obj.toString();
+	}
+
 	public static Integer getInteger(Map<String, Object> map, String key) throws Exception {
 
 		boolean present = map.containsKey(key);
 		if (!present) {
 			throw new Exception(String.format("could not find the key [%s]", key));
+		}
+
+		Object obj = map.get(key);
+		if ((obj instanceof Integer) == false) {
+			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
+		}
+
+		return (Integer) obj;
+	}
+
+	public static Integer getIntegerOrNull(Map<String, Object> map, String key) throws Exception {
+
+		boolean present = map.containsKey(key);
+		if (!present) {
+			return null;
 		}
 
 		Object obj = map.get(key);
@@ -60,11 +90,45 @@ public abstract class Utilities {
 		return temp.longValue();
 	}
 
+	public static Long getLongOrNull(Map<String, Object> map, String key) throws Exception {
+
+		boolean present = map.containsKey(key);
+		if (!present) {
+			return null;
+		}
+
+		Object obj = map.get(key);
+
+		if ((obj instanceof Number) == false) {
+			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
+		}
+
+		Number temp = (Number) obj;
+		return temp.longValue();
+	}
+
 	public static Double getDouble(Map<String, Object> map, String key) throws Exception {
 
 		boolean present = map.containsKey(key);
 		if (!present) {
 			throw new Exception(String.format("could not find the key [%s]", key));
+		}
+
+		Object obj = map.get(key);
+
+		if ((obj instanceof Number) == false) {
+			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
+		}
+
+		Number temp = (Number) obj;
+		return temp.doubleValue();
+	}
+
+	public static Double getDoubleOrNull(Map<String, Object> map, String key) throws Exception {
+
+		boolean present = map.containsKey(key);
+		if (!present) {
+			return null;
 		}
 
 		Object obj = map.get(key);
@@ -107,11 +171,56 @@ public abstract class Utilities {
 		return decimal;
 	}
 
+	public static BigDecimal getBigDecimalOrNull(Map<String, Object> map, String key) throws Exception {
+
+		boolean present = map.containsKey(key);
+		if (!present) {
+			return null;
+		}
+
+		Object obj = map.get(key);
+
+		if ((obj instanceof Number) == false) {
+			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
+		}
+
+		Number number = (Number) obj;
+
+		BigDecimal decimal;
+
+		if (number instanceof BigDecimal) {
+			decimal = (BigDecimal) number;
+		} else if (number instanceof Long || number instanceof Integer) {
+			decimal = BigDecimal.valueOf(number.longValue());
+		} else if (number instanceof Double || number instanceof Float) {
+			decimal = BigDecimal.valueOf(number.doubleValue());
+		} else {
+			decimal = new BigDecimal(number.toString());
+		}
+
+		return decimal;
+	}
+
 	public static Boolean getBoolean(Map<String, Object> map, String key) throws Exception {
 
 		boolean present = map.containsKey(key);
 		if (!present) {
 			throw new Exception(String.format("could not find the key [%s]", key));
+		}
+
+		Object obj = map.get(key);
+		if ((obj instanceof Boolean) == false) {
+			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
+		}
+
+		return (Boolean) obj;
+	}
+
+	public static Boolean getBooleanOrNull(Map<String, Object> map, String key) throws Exception {
+
+		boolean present = map.containsKey(key);
+		if (!present) {
+			return null;
 		}
 
 		Object obj = map.get(key);
