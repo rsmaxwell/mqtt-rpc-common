@@ -60,4 +60,10 @@ public class Response {
 		response.setStatus(new Status(HttpURLConnection.HTTP_UNAUTHORIZED, "Unauthorized"));
 		return response;
 	}
+
+	public static Response conflict(String message) {
+		Response response = new Response();
+		response.setStatus(new Status(HttpURLConnection.HTTP_CONFLICT, message));
+		return response;
+	}
 }
