@@ -43,6 +43,14 @@ public class Response {
 		return response;
 	}
 
+	public static Response response(int code, String message) {
+		Response response = new Response();
+		response.setStatus(new Status(code, message));
+		return response;
+	}
+
+	// Common convenience methods
+
 	public static Response badRequest(String message) {
 		Response response = new Response();
 		response.setStatus(new Status(HttpURLConnection.HTTP_BAD_REQUEST, message));
@@ -64,6 +72,12 @@ public class Response {
 	public static Response conflict(String message) {
 		Response response = new Response();
 		response.setStatus(new Status(HttpURLConnection.HTTP_CONFLICT, message));
+		return response;
+	}
+
+	public static Response entityTooLarge(String message) {
+		Response response = new Response();
+		response.setStatus(new Status(HttpURLConnection.HTTP_ENTITY_TOO_LARGE, message));
 		return response;
 	}
 }

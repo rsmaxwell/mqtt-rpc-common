@@ -305,22 +305,43 @@ public abstract class Utilities {
 		return (byte[]) obj;
 	}
 
-	public static byte[] getByteArrayOrNull(Map<String, Object> map, String key) throws Exception {
-		return getByteArrayOrDefault(map, key, null);
-	}
-
-	public static byte[] getByteArrayOrDefault(Map<String, Object> map, String key, byte[] defaultValue) throws Exception {
+	public static byte[] getByteArraySize(Map<String, Object> map, String key, Long size) throws Exception {
 
 		boolean present = map.containsKey(key);
 		if (!present) {
-			return defaultValue;
+			throw new Exception(String.format("could not find the key [%s]", key));
 		}
 
 		Object obj = map.get(key);
 		if ((obj instanceof byte[]) == false) {
 			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
 		}
+		byte[] bytes = (byte[]) obj;
 
-		return (byte[]) obj;
+		if (bytes.length != size) {
+			throw new Exception(String.format("unexpected size of byte array: key: %s, expected: %d, actual: %d", key, size, bytes.length));
+		}
+
+		return bytes;
+	}
+
+	public static byte[] getByteArrayMaxSize(Map<String, Object> map, String key, Long maxSize) throws Exception {
+
+		boolean present = map.containsKey(key);
+		if (!present) {
+			throw new Exception(String.format("could not find the key [%s]", key));
+		}
+
+		Object obj = map.get(key);
+		if ((obj instanceof byte[]) == false) {
+			throw new Exception(String.format("unexpected type for key: %s, %s", key, obj.getClass().getSimpleName()));
+		}
+		byte[] bytes = (byte[]) obj;
+
+		if (bytes.length > maxSize) {
+			throw new Exception(String.format("byte array too long: key: %s, maxSize: %d, actual: %d", key, maxSize, bytes.length));
+		}
+
+		return bytes;
 	}
 }
