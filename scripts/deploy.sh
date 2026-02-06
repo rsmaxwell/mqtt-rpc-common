@@ -1,17 +1,16 @@
 #!/bin/sh
 
+
 BASEDIR=$(dirname "$0")
 SCRIPT_DIR=$(cd $BASEDIR && pwd)
-SUBPROJECT_DIR=$(dirname $SCRIPT_DIR)
-PROJECT_DIR=$(dirname $SUBPROJECT_DIR)
-BUILD_DIR=${SUBPROJECT_DIR}/build
+PROJECT_DIR=$(dirname $SCRIPT_DIR)
+BUILD_DIR=${PROJECT_DIR}/app/build
 
 . ${BUILD_DIR}/buildinfo
 
 
-cd ${SUBPROJECT_DIR}
+cd ${PROJECT_DIR}
 
-
-${PROJECT_DIR}/gradlew publish \
+./gradlew publish --no-daemon --info \
     -PrepositoryName=${REPOSITORY} \
     -PprojectVersion=${VERSION}

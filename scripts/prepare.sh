@@ -1,12 +1,36 @@
-#!/bin/sh
+#!/bin/bash
+
+set -e
+set -x 
+
+# Check required env variables are set
+case "$FAMILY" in
+  alpine|linux) ;;
+  *)
+    echo "ERROR: invalid FAMILY='$FAMILY' (allowed: alpine|linux)" >&2
+    exit 2
+    ;;
+esac
+
+case "$ARCHITECTURE" in
+  amd64|arm64) ;;
+  *)
+    echo "ERROR: invalid ARCHITECTURE='$ARCHITECTURE' (allowed: amd64|arm64)" >&2
+    exit 2
+    ;;
+esac
+
+
 
 if [ -z "${BUILD_ID}" ]; then
     BUILD_ID="(none)"
     VERSION="0.0.1-SNAPSHOT"
     REPOSITORY=snapshots
+    REPOSITORYID=snapshots
 else
     VERSION="0.0.1.$((${BUILD_ID}))"
     REPOSITORY=releases
+    REPOSITORYID=releases
 fi
 
 
@@ -14,10 +38,12 @@ fi
 
 BASEDIR=$(dirname "$0")
 SCRIPT_DIR=$(cd $BASEDIR && pwd)
-SUBPROJECT_DIR=$(dirname $SCRIPT_DIR)
-PROJECT_DIR=$(dirname $SUBPROJECT_DIR)
-BUILD_DIR=${SUBPROJECT_DIR}/build
-SOURCE_DIR=${SUBPROJECT_DIR}/src
+PROJECT_DIR=$(dirname $SCRIPT_DIR)
+SOURCE_DIR=${PROJECT_DIR}/src
+BUILD_DIR=${PROJECT_DIR}/app/build
+TEMPLATES_DIR=${PROJECT_DIR}/templates
+
+
 
 
 
@@ -26,7 +52,7 @@ PROJECT=mqtt-rpc-common
 GROUPID=com.rsmaxwell.mqtt.rpc
 ARTIFACTID=${PROJECT}
 PACKAGING=zip
-ZIPFILE=${ARTIFACTID}_${VERSION}.${PACKAGING}
+ZIPFILE=${ARTIFACTID}
 
 
 
@@ -37,29 +63,30 @@ GIT_URL="${GIT_URL:-(none)}"
 
 export PROJECT
 export REPOSITORY
+export REPOSITORYID
 export BUILD_ID
 export VERSION
 export TIMESTAMP
 export GIT_COMMIT
 export GIT_BRANCH
 export GIT_URL
+export FAMILY
+export ARCHITECTURE
 
 
+cd ${TEMPLATES_DIR}
 
-cd ${SOURCE_DIR}
+tags='$FAMILY,$ARCHITECTURE,$PROJECT,$REPOSITORY,$REPOSITORYID,$VERSION,$BUILD_ID,$TIMESTAMP,$GIT_COMMIT,$GIT_BRANCH,$GIT_URL'
 
-tags='$PROJECT,$REPOSITORY,$VERSION,$BUILD_ID,$TIMESTAMP,$GIT_COMMIT,$GIT_BRANCH,$GIT_URL'
-
-find . -name BuildInfo.java | while read filename; do
-    echo "Updating ${filename}"
-    originalfile=${SOURCE_DIR}/${filename}
-    tmpfile=$(mktemp)
-    cp --attributes-only --preserve ${originalfile} ${tmpfile}
-    cat ${originalfile} | envsubst > ${tmpfile}
-    mv ${tmpfile} ${originalfile}
+find . -type f | while read filename; do
+    echo "Writing ${filename}"
+    file="${SOURCE_DIR}/${filename}"
+    dir="$(dirname "$file")"
+    mkdir -p "$dir"
+    envsubst "$tags" < "$filename" > "$file"
 done
 
-
+tree ${SOURCE_DIR}
 
 
 mkdir -p ${BUILD_DIR}
@@ -69,7 +96,10 @@ cat > buildinfo <<EOL
 BUILD_ID="${BUILD_ID}"
 VERSION="${VERSION}"
 REPOSITORY="${REPOSITORY}"
+REPOSITORYID="${REPOSITORYID}"
 REPOSITORY_URL="${REPOSITORY_URL}"
+FAMILY="${FAMILY}"
+ARCHITECTURE="${ARCHITECTURE}"
 PROJECT="${PROJECT}"
 GROUPID="${GROUPID}"
 ARTIFACTID="${ARTIFACTID}"
@@ -80,3 +110,7 @@ GIT_COMMIT="${GIT_COMMIT}"
 GIT_BRANCH="${GIT_BRANCH}"
 GIT_URL="${GIT_URL}"
 EOL
+
+pwd
+ls -al 
+cat buildinfo

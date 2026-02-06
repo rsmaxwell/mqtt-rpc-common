@@ -1,0 +1,56 @@
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation libs.junit.jupiter
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation libs.guava
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+ext {
+    projectVersion = project.hasProperty('projectVersion') ? project.getProperty('projectVersion') : projectVersion_default
+    repositoryName = project.hasProperty('repositoryName') ? project.getProperty('repositoryName') : repositoryName_default
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = projectArtifactId
+            groupId = projectGroupId
+            version = projectVersion
+
+            from components["java"]
+        }
+    }
+
+    repositories {
+        maven {
+            credentials {
+                username = mavenUser
+                password = mavenPassword
+            }
+
+            url = "${mavenRepositoryBaseURL}/${repositoryName}"
+        }
+    }
+}
