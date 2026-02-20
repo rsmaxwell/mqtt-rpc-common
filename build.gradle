@@ -39,7 +39,7 @@ tasks.named('test') {
 
 ext {
     repositoryName = findProperty('repositoryName') ?: repositoryName_default
-    projectVersion = findProperty('projectVersion') ?: version_default
+    myProjectVersion = findProperty('projectVersion') ?: version_default
 }
 
 publishing {
@@ -47,7 +47,7 @@ publishing {
         mavenJava(MavenPublication) {
             artifactId = projectArtifactId
             groupId = projectGroupId
-            version = projectVersion
+            version = myProjectVersion
             from components["java"]
         }
     }
