@@ -45,9 +45,9 @@ ext {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = projectArtifactId
-            groupId = projectGroupId
-            version = projectVersion
+            artifactId = project.property('projectArtifactId')
+            groupId    = project.property('projectGroupId')
+            version    = project.property('projectVersion')
 
             from components["java"]
         }
