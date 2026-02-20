@@ -38,17 +38,19 @@ tasks.named('test') {
 }
 
 ext {
+    group = project.findProperty('projectGroupId') ?: 'com.rsmaxwell.mqtt.rpc'
+    version = project.findProperty('projectVersion') ?: '0.0.0-SNAPSHOT'
+
     repositoryName = findProperty('repositoryName') ?: repositoryName_default
-    projectVersion = findProperty('version') ?: version_default
+    projectVersion = findProperty('projectVersion') ?: version_default
 }
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = project.property('projectArtifactId')
-            groupId    = project.property('projectGroupId')
-            version    = project.property('projectVersion')
-
+            artifactId = project.findProperty('projectArtifactId') ?: project.name
+            groupId    = project.group.toString()
+            version    = project.version.toString()
             from components["java"]
         }
     }
