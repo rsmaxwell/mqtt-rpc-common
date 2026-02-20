@@ -37,17 +37,24 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-ext {
-    repositoryName = findProperty('repositoryName') ?: repositoryName_default
-    myProjectVersion = findProperty('projectVersion') ?: version_default
-}
+
+
+def repoName = findProperty('repositoryName') ?: 'unknownRepository'
+def pubGroup = findProperty('projectGroupId') ?: 'unknownGroupId'
+def pubArtifact = findProperty('projectArtifactId') ?: 'unknownArtifactId'
+def pubVersion = findProperty('projectVersion') ?: 'unknownVersion'
+
+
+group = pubGroup
+version = pubVersion
+
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = projectArtifactId
-            groupId = projectGroupId
-            version = myProjectVersion
+            groupId = pubGroup
+            artifactId = pubArtifact
+            version = pubVersion
             from components["java"]
         }
     }
@@ -59,7 +66,7 @@ publishing {
                 password = mavenPassword
             }
 
-            url = "${mavenRepositoryBaseURL}/${repositoryName}"
+            url = "${mavenRepositoryBaseURL}/${repoName}"
             allowInsecureProtocol = true
         }
     }
