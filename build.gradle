@@ -39,36 +39,42 @@ tasks.named('test') {
 
 
 
-def repoName = findProperty('repositoryName') ?: 'unknownRepository'
-def pubGroup = findProperty('projectGroupId') ?: 'unknownGroupId'
-def pubArtifact = findProperty('projectArtifactId') ?: 'unknownArtifactId'
-def pubVersion = findProperty('projectVersion') ?: 'unknownVersion'
+def repoBase = findProperty("mavenRepoBaseUrl")
+if (!repoBase) throw new GradleException("mavenRepoBaseUrl is not set (project gradle.properties)")
 
+def pubUser = findProperty("mavenUser")
+if (!repoBase) throw new GradleException("mavenUser is not set (~/$HOME/gradle.properties)")
 
-group = pubGroup
-version = pubVersion
+def pubPassword = findProperty("mavenPassword")
+if (!repoBase) throw new GradleException("mavenPassword is not set (~/$HOME/gradle.properties)")
+
 
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId = pubGroup
-            artifactId = pubArtifact
-            version = pubVersion
+            groupId = project.group.toString()
+            artifactId = project.name    // default anyway
+            version = project.version.toString()
             from components["java"]
         }
     }
 
     repositories {
         maven {
+            url = uri("${repoBase}/${findProperty('repo') ?: 'snapshots'}")
             credentials {
                 username = mavenUser
                 password = mavenPassword
             }
 
-            url = "${mavenRepositoryBaseURL}/${repoName}"
             allowInsecureProtocol = true
         }
     }
 }
 
+
+task getDeps(type: Copy) {
+  from sourceSets.main.runtimeClasspath, sourceSets.test.runtimeClasspath
+  into 'runtime/'
+}
