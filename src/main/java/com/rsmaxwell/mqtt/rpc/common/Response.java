@@ -2,9 +2,6 @@ package com.rsmaxwell.mqtt.rpc.common;
 
 import java.net.HttpURLConnection;
 
-import lombok.Data;
-
-@Data
 public class Response {
 
 	private Status status;
@@ -17,6 +14,30 @@ public class Response {
 	public Response(Status status, Object payload) {
 		this.status = status;
 		this.payload = payload;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Object getPayload() {
+		return payload;
+	}
+
+	public void setPayload(Object payload) {
+		this.payload = payload;
+	}
+
+	public boolean isQuit() {
+		return quit;
+	}
+
+	public void setQuit(boolean quit) {
+		this.quit = quit;
 	}
 
 	public boolean isOk() throws Exception {
@@ -78,6 +99,12 @@ public class Response {
 	public static Response entityTooLarge(String message) {
 		Response response = new Response();
 		response.setStatus(new Status(HttpURLConnection.HTTP_ENTITY_TOO_LARGE, message));
+		return response;
+	}
+
+	public static Response forbidden(String message) {
+		Response response = new Response();
+		response.setStatus(new Status(HttpURLConnection.HTTP_FORBIDDEN, message));
 		return response;
 	}
 }
