@@ -70,41 +70,7 @@ public class Response {
 		return response;
 	}
 
-	// Common convenience methods
-
-	public static Response badRequest(String message) {
-		Response response = new Response();
-		response.setStatus(new Status(HttpURLConnection.HTTP_BAD_REQUEST, message));
-		return response;
-	}
-
-	public static Response internalError(String message) {
-		Response response = new Response();
-		response.setStatus(new Status(HttpURLConnection.HTTP_INTERNAL_ERROR, message));
-		return response;
-	}
-
-	public static Response unauthorized() {
-		Response response = new Response();
-		response.setStatus(new Status(HttpURLConnection.HTTP_UNAUTHORIZED, "Unauthorized"));
-		return response;
-	}
-
-	public static Response conflict(String message) {
-		Response response = new Response();
-		response.setStatus(new Status(HttpURLConnection.HTTP_CONFLICT, message));
-		return response;
-	}
-
-	public static Response entityTooLarge(String message) {
-		Response response = new Response();
-		response.setStatus(new Status(HttpURLConnection.HTTP_ENTITY_TOO_LARGE, message));
-		return response;
-	}
-
-	public static Response forbidden(String message) {
-		Response response = new Response();
-		response.setStatus(new Status(HttpURLConnection.HTTP_FORBIDDEN, message));
-		return response;
+	public static Response status(Status status, String message) {
+		return new Response(status, message);
 	}
 }
