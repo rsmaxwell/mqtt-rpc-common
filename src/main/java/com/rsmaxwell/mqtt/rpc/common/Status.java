@@ -29,7 +29,8 @@ public class Status {
 		return sb.toString();
 	}
 
-	public static final Status BAD_REQUEST = new Status(HttpURLConnection.HTTP_OK, "ok");
+	public static final Status OK = new Status(HttpURLConnection.HTTP_OK, "ok");
+	public static final Status BAD_REQUEST = new Status(HttpURLConnection.HTTP_BAD_REQUEST, "bad request");
 	public static final Status UNAUTHORIZED = new Status(HttpURLConnection.HTTP_UNAUTHORIZED, "unauthorized");
 	public static final Status FORBIDDEN = new Status(HttpURLConnection.HTTP_FORBIDDEN, "forbidden");
 	public static final Status CONFLICT = new Status(HttpURLConnection.HTTP_CONFLICT, "conflict");
