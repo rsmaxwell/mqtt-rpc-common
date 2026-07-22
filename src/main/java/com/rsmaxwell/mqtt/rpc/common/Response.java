@@ -1,76 +1,30 @@
 package com.rsmaxwell.mqtt.rpc.common;
 
-import java.net.HttpURLConnection;
+public record Response(
+        Status status,
+        Object payload,
+        boolean quit) {
 
-public class Response {
+    public static Response status(Status status, Object payload) {
+        return new Response(status, payload, false);
+    }
 
-	private Status status;
-	private Object payload;
-	private boolean quit;
+    public static Response success() {
+        return new Response(Status.OK, null, false);
+    }
 
-	public Response() {
-	}
-
-	public Response(Status status, Object payload) {
-		this.status = status;
-		this.payload = payload;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public Object getPayload() {
-		return payload;
-	}
-
-	public void setPayload(Object payload) {
-		this.payload = payload;
-	}
-
-	public boolean isQuit() {
-		return quit;
-	}
-
-	public void setQuit(boolean quit) {
-		this.quit = quit;
-	}
-
-	public boolean isOk() throws Exception {
-		return (this.status.isOk());
-	}
-
-	public static Response success() {
-		Response response = new Response();
-		response.setStatus(new Status(HttpURLConnection.HTTP_OK, "Ok"));
-		return response;
-	}
-
-	public static Response success(Object value) {
-		Response response = new Response();
-		response.setStatus(new Status(HttpURLConnection.HTTP_OK, "Ok"));
-		response.setPayload(value);
-		return response;
-	}
-
-	public static Response quit() {
-		Response response = new Response();
-		response.setStatus(new Status(HttpURLConnection.HTTP_OK, "Ok"));
-		response.setQuit(true);
-		return response;
-	}
-
-	public static Response response(int code, String message) {
-		Response response = new Response();
-		response.setStatus(new Status(code, message));
-		return response;
-	}
-
-	public static Response status(Status status, String message) {
-		return new Response(status, message);
-	}
+    public static Response success(Object payload) {
+        return new Response(Status.OK, payload, false);    
+    }
+    
+    public static Response quitting() {
+        return new Response(Status.OK, null, true);
+    }    
+    
+    public static Response error(Status status, String message) {
+        return new Response(
+                new Status(status.code(), message),
+                null,
+                false);
+    }
 }
