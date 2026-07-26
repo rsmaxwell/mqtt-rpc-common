@@ -7,7 +7,7 @@ public record Request(
         Map<String, Object> args) {
 
     public Request {
-        args = Map.copyOf(args);
+        args = args == null ? Map.of() : Map.copyOf(args);
     }
 
     public Request(String function) {
